@@ -140,26 +140,35 @@ c1, c2, c3, c4 = st.columns(4)
 with c1:
     st.metric("⚡ Total Kendaraan", f"{total_ev:,}")
     with st.popover("🔍 Lihat Detail Data", use_container_width=True):
-        st.caption("Menampilkan seluruh dataset berdasarkan filter saat ini.")
+        st.caption("Tren Registrasi Tahunan:")
+        st.bar_chart(df_filtered["Tahun Registrasi"].value_counts().sort_index(), color="#3b82f6")
+        st.caption("Seluruh dataset berdasarkan filter saat ini:")
         st.dataframe(df_filtered, use_container_width=True)
 
 with c2:
     st.metric("🚗 Merek (Brand)", f"{total_brand}")
     with st.popover("🔍 Lihat Daftar Merek", use_container_width=True):
-        st.caption("Peringkat merek dari yang terbanyak.")
-        st.dataframe(df_filtered["Brand"].value_counts().reset_index().rename(columns={"count":"Jumlah"}), use_container_width=True)
+        st.caption("Peringkat merek dari yang terbanyak:")
+        brand_counts = df_filtered["Brand"].value_counts()
+        st.bar_chart(brand_counts, color="#8b5cf6")
+        st.dataframe(brand_counts.reset_index().rename(columns={"count":"Jumlah"}), use_container_width=True)
 
 with c3:
     st.metric("💰 Penerima Subsidi", f"{penerima_subsidi:,}")
     with st.popover("🔍 Lihat Data Subsidi", use_container_width=True):
-        st.caption("Dataset khusus kendaraan yang menerima subsidi.")
-        st.dataframe(df_filtered[df_filtered["Penerima Subsidi"] == "Ya"], use_container_width=True)
+        st.caption("Merek terbanyak penerima subsidi:")
+        sub_df = df_filtered[df_filtered["Penerima Subsidi"] == "Ya"]
+        st.bar_chart(sub_df["Brand"].value_counts(), color="#10b981")
+        st.caption("Dataset khusus kendaraan yang menerima subsidi:")
+        st.dataframe(sub_df, use_container_width=True)
 
 with c4:
     st.metric("📈 Rasio Subsidi", f"{persen_subsidi:.1f}%")
     with st.popover("🔍 Bandingkan Rasio", use_container_width=True):
-        st.caption("Perbandingan jumlah penerima subsidi vs tidak.")
-        st.dataframe(df_filtered["Penerima Subsidi"].value_counts().reset_index().rename(columns={"count":"Jumlah"}), use_container_width=True)
+        st.caption("Perbandingan jumlah penerima subsidi vs tidak:")
+        sub_counts = df_filtered["Penerima Subsidi"].value_counts()
+        st.bar_chart(sub_counts, color="#f59e0b")
+        st.dataframe(sub_counts.reset_index().rename(columns={"count":"Jumlah"}), use_container_width=True)
 
 st.markdown("---")
 
