@@ -136,7 +136,7 @@ penerima_subsidi = len(df_filtered[df_filtered["Penerima Subsidi"] == "Ya"])
 persen_subsidi = (penerima_subsidi / total_ev) * 100 if total_ev > 0 else 0
 
 c1, c2, c3, c4 = st.columns(4)
-c1.metric("⚡ Total Kendaraan (Sampel)", f"{total_ev:,}")
+c1.metric("⚡ Total Kendaraan", f"{total_ev:,}")
 c2.metric("🚗 Merek (Brand)", f"{total_brand}")
 c3.metric("💰 Penerima Subsidi", f"{penerima_subsidi:,}")
 c4.metric("📈 Rasio Subsidi", f"{persen_subsidi:.1f}%")
