@@ -83,7 +83,7 @@ if df.empty:
 # HEADER (STORYTELLING CONTEXT)
 # =====================================================
 st.markdown('<div class="gradient-text">Transisi Energi: Adopsi Kendaraan Listrik (EV) di Indonesia</div>', unsafe_allow_html=True)
-st.markdown('<div class="sub-text"><b>Kompetisi SIC SATRIA DATA 2026</b><br>Mengolah data kompleks menjadi visualisasi interaktif untuk memahami tantangan dan peluang transisi menuju industri energi bersih dan pencapaian <i>Net Zero Emission</i>.</div>', unsafe_allow_html=True)
+st.markdown('<div class="sub-text">Mengolah data kompleks menjadi visualisasi interaktif untuk memahami tantangan dan peluang transisi menuju industri energi bersih dan pencapaian <i>Net Zero Emission</i>.</div>', unsafe_allow_html=True)
 
 # =====================================================
 # SIDEBAR
