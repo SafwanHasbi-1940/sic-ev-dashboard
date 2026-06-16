@@ -136,10 +136,30 @@ penerima_subsidi = len(df_filtered[df_filtered["Penerima Subsidi"] == "Ya"])
 persen_subsidi = (penerima_subsidi / total_ev) * 100 if total_ev > 0 else 0
 
 c1, c2, c3, c4 = st.columns(4)
-c1.metric("⚡ Total Kendaraan", f"{total_ev:,}")
-c2.metric("🚗 Merek (Brand)", f"{total_brand}")
-c3.metric("💰 Penerima Subsidi", f"{penerima_subsidi:,}")
-c4.metric("📈 Rasio Subsidi", f"{persen_subsidi:.1f}%")
+
+with c1:
+    st.metric("⚡ Total Kendaraan", f"{total_ev:,}")
+    with st.popover("🔍 Lihat Detail Data", use_container_width=True):
+        st.caption("Menampilkan seluruh dataset berdasarkan filter saat ini.")
+        st.dataframe(df_filtered, use_container_width=True)
+
+with c2:
+    st.metric("🚗 Merek (Brand)", f"{total_brand}")
+    with st.popover("🔍 Lihat Daftar Merek", use_container_width=True):
+        st.caption("Peringkat merek dari yang terbanyak.")
+        st.dataframe(df_filtered["Brand"].value_counts().reset_index().rename(columns={"count":"Jumlah"}), use_container_width=True)
+
+with c3:
+    st.metric("💰 Penerima Subsidi", f"{penerima_subsidi:,}")
+    with st.popover("🔍 Lihat Data Subsidi", use_container_width=True):
+        st.caption("Dataset khusus kendaraan yang menerima subsidi.")
+        st.dataframe(df_filtered[df_filtered["Penerima Subsidi"] == "Ya"], use_container_width=True)
+
+with c4:
+    st.metric("📈 Rasio Subsidi", f"{persen_subsidi:.1f}%")
+    with st.popover("🔍 Bandingkan Rasio", use_container_width=True):
+        st.caption("Perbandingan jumlah penerima subsidi vs tidak.")
+        st.dataframe(df_filtered["Penerima Subsidi"].value_counts().reset_index().rename(columns={"count":"Jumlah"}), use_container_width=True)
 
 st.markdown("---")
 
