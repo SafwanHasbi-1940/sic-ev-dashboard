@@ -19,7 +19,6 @@ st.set_page_config(
 st.markdown("""
 <style>
     .stApp { background-color: #0b0f19; color: #e2e8f0; }
-    [data-testid="stSidebar"] { background-color: #111827; border-right: 1px solid #1f2937; }
     .block-container { padding-top: 2rem; padding-bottom: 2rem; }
     [data-testid="stMetric"] {
         background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
@@ -86,23 +85,31 @@ st.markdown('<div class="gradient-text">Transisi Energi: Adopsi Kendaraan Listri
 st.markdown('<div class="sub-text">Mengolah data kompleks menjadi visualisasi interaktif untuk memahami tantangan dan peluang transisi menuju industri energi bersih dan pencapaian <i>Net Zero Emission</i>.</div>', unsafe_allow_html=True)
 
 # =====================================================
-# SIDEBAR
+# FILTER EKSPLORASI (TAMPIL DI HALAMAN UTAMA)
 # =====================================================
-st.sidebar.markdown("### ⚙️ Filter Eksplorasi")
+st.markdown("### ⚙️ Filter Eksplorasi")
 
 # Clean filter lists
 years = sorted([y for y in df["Tahun Registrasi"].unique()])
 provinsis = sorted([p for p in df["Provinsi"].unique()])
 tipes = sorted([t for t in df["Tipe Kendaraan"].unique()])
 
-selected_years = st.sidebar.slider(
-    "Rentang Tahun Registrasi",
-    min_value=min(years), max_value=max(years),
-    value=(min(years), max(years))
-)
+fcol1, fcol2, fcol3 = st.columns(3)
 
-selected_prov = st.sidebar.selectbox("Pilih Provinsi", ["Seluruh Indonesia"] + provinsis)
-selected_tipe = st.sidebar.selectbox("Tipe Kendaraan", ["Semua Tipe"] + tipes)
+with fcol1:
+    selected_years = st.slider(
+        "Rentang Tahun Registrasi",
+        min_value=min(years), max_value=max(years),
+        value=(min(years), max(years))
+    )
+
+with fcol2:
+    selected_prov = st.selectbox("Pilih Provinsi", ["Seluruh Indonesia"] + provinsis)
+
+with fcol3:
+    selected_tipe = st.selectbox("Tipe Kendaraan", ["Semua Tipe"] + tipes)
+
+st.markdown("<br>", unsafe_allow_html=True)
 
 # Filter Logic
 df_filtered = df[
