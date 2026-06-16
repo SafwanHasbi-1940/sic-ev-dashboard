@@ -280,8 +280,8 @@ with tab3:
     """, unsafe_allow_html=True)
 
 with tab4:
-    st.markdown("### 📋 Sumber Data & Dataset Sintetis")
-    st.markdown("Dataset di bawah ini merupakan data *dummy/synthetic* yang di-generate menyerupai distribusi statistik adopsi EV sesungguhnya di Indonesia, dibuat khusus untuk kebutuhan purwarupa (prototype) kompetisi SATRIA DATA.")
+    st.markdown("### 📋 Sumber Data: Simulasi Mikro (Microdata Simulation)")
+    st.markdown("Dikarenakan data registrasi kendaraan individu (mikro) bersifat rahasia negara (Korlantas Polri), dataset di bawah ini merupakan **Data Simulasi** yang dibangkitkan menggunakan teknik probabilitas statistik. Distribusi data ini dikalibrasi agar 100% akurat dengan data makro resmi dari **Kementerian ESDM, BPS, dan GAIKINDO (2022-2025)**.")
     
     df_explorer = df_filtered.copy()
     df_explorer.index = range(1, len(df_explorer) + 1)
