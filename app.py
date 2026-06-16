@@ -143,7 +143,9 @@ with c1:
         st.caption("Tren Registrasi Tahunan:")
         st.bar_chart(df_filtered["Tahun Registrasi"].value_counts().sort_index(), color="#3b82f6")
         st.caption("Seluruh dataset berdasarkan filter saat ini:")
-        st.dataframe(df_filtered, use_container_width=True)
+        df_view1 = df_filtered.copy()
+        df_view1.index = range(1, len(df_view1) + 1)
+        st.dataframe(df_view1, use_container_width=True)
 
 with c2:
     st.metric("🚗 Merek (Brand)", f"{total_brand}")
@@ -151,7 +153,9 @@ with c2:
         st.caption("Peringkat merek dari yang terbanyak:")
         brand_counts = df_filtered["Brand"].value_counts()
         st.bar_chart(brand_counts, color="#8b5cf6")
-        st.dataframe(brand_counts.reset_index().rename(columns={"count":"Jumlah"}), use_container_width=True)
+        df_b = brand_counts.reset_index().rename(columns={"count":"Jumlah"})
+        df_b.index = range(1, len(df_b) + 1)
+        st.dataframe(df_b, use_container_width=True)
 
 with c3:
     st.metric("💰 Penerima Subsidi", f"{penerima_subsidi:,}")
@@ -160,7 +164,9 @@ with c3:
         sub_df = df_filtered[df_filtered["Penerima Subsidi"] == "Ya"]
         st.bar_chart(sub_df["Brand"].value_counts(), color="#10b981")
         st.caption("Dataset khusus kendaraan yang menerima subsidi:")
-        st.dataframe(sub_df, use_container_width=True)
+        df_sub_view = sub_df.copy()
+        df_sub_view.index = range(1, len(df_sub_view) + 1)
+        st.dataframe(df_sub_view, use_container_width=True)
 
 with c4:
     st.metric("📈 Rasio Subsidi", f"{persen_subsidi:.1f}%")
@@ -168,7 +174,9 @@ with c4:
         st.caption("Perbandingan jumlah penerima subsidi vs tidak:")
         sub_counts = df_filtered["Penerima Subsidi"].value_counts()
         st.bar_chart(sub_counts, color="#f59e0b")
-        st.dataframe(sub_counts.reset_index().rename(columns={"count":"Jumlah"}), use_container_width=True)
+        df_s = sub_counts.reset_index().rename(columns={"count":"Jumlah"})
+        df_s.index = range(1, len(df_s) + 1)
+        st.dataframe(df_s, use_container_width=True)
 
 st.markdown("---")
 
@@ -275,7 +283,9 @@ with tab4:
     st.markdown("### 📋 Sumber Data & Dataset Sintetis")
     st.markdown("Dataset di bawah ini merupakan data *dummy/synthetic* yang di-generate menyerupai distribusi statistik adopsi EV sesungguhnya di Indonesia, dibuat khusus untuk kebutuhan purwarupa (prototype) kompetisi SATRIA DATA.")
     
-    st.dataframe(df_filtered, use_container_width=True)
+    df_explorer = df_filtered.copy()
+    df_explorer.index = range(1, len(df_explorer) + 1)
+    st.dataframe(df_explorer, use_container_width=True)
     
     csv = df_filtered.to_csv(index=False)
     st.download_button(
