@@ -202,8 +202,19 @@ with tab2:
         st.markdown("### 🏆 Top Brand Penguasa Pasar")
         brand_count = df_filtered["Brand"].value_counts().head(10).reset_index()
         brand_count.columns = ["Brand", "Jumlah"]
-        fig_brand = px.bar(brand_count, x="Brand", y="Jumlah", text_auto=True, template=chart_template, color_discrete_sequence=["#8b5cf6"])
-        fig_brand.update_layout(plot_bgcolor=chart_bg, paper_bgcolor=chart_bg)
+        
+        brand_colors = {
+            "Wuling": "#ef4444", "Hyundai": "#1e3a8a", "BYD": "#3b82f6",
+            "Vespa": "#14b8a6", "Gesits": "#f97316", "Alva": "#0f766e",
+            "Polytron": "#be123c", "Selis": "#10b981", "Volta": "#eab308",
+            "Yadea": "#8b5cf6", "Honda": "#dc2626", "Yamaha": "#1d4ed8"
+        }
+        
+        fig_brand = px.bar(
+            brand_count, x="Brand", y="Jumlah", text_auto=True, 
+            template=chart_template, color="Brand", color_discrete_map=brand_colors
+        )
+        fig_brand.update_layout(showlegend=False, plot_bgcolor=chart_bg, paper_bgcolor=chart_bg)
         st.plotly_chart(fig_brand, use_container_width=True)
 
 with tab3:
@@ -246,4 +257,3 @@ with tab4:
     )
 
 st.markdown("---")
-st.markdown("<p style='text-align:center; color:#94a3b8;'>Dibuat untuk Kompetisi <b>Statistics Infographic Competition (SIC) SATRIA DATA 2026</b></p>", unsafe_allow_html=True)
